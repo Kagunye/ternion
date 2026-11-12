@@ -1,0 +1,5 @@
+# Only for the image/video scripts in tools/ (not needed to run the site)
+Pillow
+numpy
+scipy
+opencv-python

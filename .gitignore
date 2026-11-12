@@ -16,3 +16,8 @@ media/
 
 # Unused hero video (built from a third-party recording; not referenced by the site)
 static/video/
+
+# Secrets
+.env
+.env.*
+!.env.example
