@@ -31,10 +31,10 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 
-ALLOWED_HOSTS = [h.strip() for h in os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',') if h.strip()]
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get('DJANGO_ALLOWED_HOSTS', 'ternion.vercel.app,localhost,127.0.0.1').split(',') if h.strip()]
 
-# Full origins (with scheme) allowed to POST forms, e.g. https://*.vercel.app,https://ternion.co.ke
-CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()]
+# Full origins (with scheme) allowed to POST forms, e.g. https://ternion.vercel.app,https://ternion.co.ke
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'https://ternion.vercel.app').split(',') if o.strip()]
 
 # Vercel terminates HTTPS in front of the app
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
