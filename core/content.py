@@ -258,3 +258,48 @@ WHY_US = [
      "We follow up on the signed note and, where agreed, send a photo to your nominated WhatsApp contact.",
      "M16 8h-4v34h24V8h-4 M16 5h16v7H16z M17 25l5 5 9-10 M17 37c3-3 5 1 8-1s4-2 6 0"),
 ]
+
+
+# Header navigation (desktop mega menus + mobile accordion).
+# child: (url name, anchor, title, eyebrow, image, image fit)
+MENU = [
+    {"name": "home", "label": "Home"},
+    {
+        "name": "about", "label": "Company", "kind": "cards",
+        "match": ["about", "operations"],
+        "intro": ("The company", "Coordinating freight since 2022",
+                  "Ternion Ventures Limited moves commercial cargo through contracted carriers, with one accountable "
+                  "contact from collection to signed handover.", "about", "About Ternion"),
+        "children": [
+            ("about", "", "About us", "Vision & mission", "img/truck-orange.webp", "contain"),
+            ("operations", "", "Operations", "Mombasa to Nairobi", "img/truck-track.webp", "contain"),
+            ("about", "#values", "Core values", "How we work", "img/containers-stack.webp", "cover"),
+        ],
+    },
+    {
+        "name": "services", "label": "Services", "kind": "cards",
+        "match": ["services", "cargodesk"],
+        "intro": ("Services", "Road freight, followed through",
+                  "Individual consignments and repeat deliveries. Every quote sets out the journey, the agreed work, "
+                  "the price and when the offer expires.", "services", "All services"),
+        "children": [
+            ("services", "", "Road freight", "Matched to your cargo", "img/truck-container.webp", "contain"),
+            ("services", "", "Inland distribution", "Route & access checked", "img/truck-orange.webp", "contain"),
+            ("cargodesk", "", "Ternion CargoDesk", "In development", "img/container-hook.webp", "contain"),
+        ],
+    },
+    {
+        "name": "industries", "label": "Industries", "kind": "list",
+        "match": ["industries"],
+        "intro": ("Industries", "Planned around who's waiting",
+                  "We plan each booking around the people who depend on it: the clearing contact, the receiving "
+                  "team and the accounts office.", "industries", "See industries"),
+        "children": [
+            ("industries", "", "Importers & clearing agents", "", "", ""),
+            ("industries", "", "Manufacturers", "", "", ""),
+            ("industries", "", "Wholesalers & distributors", "", "", ""),
+            ("operations", "", "How a movement runs", "", "", ""),
+        ],
+    },
+    {"name": "contact", "label": "Contact"},
+]

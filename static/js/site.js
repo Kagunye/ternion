@@ -16,63 +16,54 @@ document.querySelectorAll('[data-accordion]').forEach((acc) => {
   });
 });
 
-// Mobile menu
-const burger = document.querySelector('.burger');
-const nav = document.getElementById('nav');
-if (burger && nav) {
-  burger.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open);
-  });
-  nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
-    nav.classList.remove('open');
-    burger.setAttribute('aria-expanded', 'false');
-  }));
-}
-
-// Respect reduced-motion: keep the hero video on its poster frame
-const heroVideo = document.querySelector('.hero-v__video');
-if (heroVideo) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    heroVideo.removeAttribute('autoplay');
-    heroVideo.pause();
-  } else {
-    // some browsers skip autoplay in background tabs; start it once visible
-    const tryPlay = () => { if (!document.hidden && heroVideo.paused) heroVideo.play().catch(() => {}); };
-    document.addEventListener('visibilitychange', tryPlay);
-    heroVideo.addEventListener('canplay', tryPlay, { once: true });
-    tryPlay();
-  }
-}
-
-// Hero journey steps: highlight the stage that is playing, click to jump
+// Site header: solid on scroll, mobile slide-in menu with accordion dropdowns
 (() => {
-  const video = document.querySelector('.hero-v__video');
-  const items = [...document.querySelectorAll('.hero-v__steps li')];
-  if (!video || !items.length) return;
-  const starts = items.map((li) => parseFloat(li.dataset.t));
-  let current = -1;
-  const update = () => {
-    const t = video.currentTime;
-    const dur = video.duration || 0;
-    let i = 0;
-    while (i + 1 < starts.length && t >= starts[i + 1]) i++;
-    if (i !== current) {
-      items.forEach((li, k) => li.classList.toggle('is-active', k === i));
-      current = i;
-    }
-    const end = i + 1 < starts.length ? starts[i + 1] : dur;
-    const p = end > starts[i] ? Math.min(1, (t - starts[i]) / (end - starts[i])) : 0;
-    items[i].style.setProperty('--p', p.toFixed(3));
+  const header = document.querySelector('.site-header');
+  const nav = document.querySelector('.main-nav');
+  const toggle = document.querySelector('.nav-toggle');
+  if (!header) return;
+
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  if (!nav || !toggle) return;
+  const mq = window.matchMedia('(max-width: 980px)');
+  const setMenu = (open) => {
+    nav.classList.toggle('open', open);
+    header.classList.toggle('menu-open', open);
+    document.body.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (!open) nav.querySelectorAll('.sub-open').forEach((el) => {
+      el.classList.remove('sub-open');
+      el.firstElementChild.setAttribute('aria-expanded', 'false');
+    });
   };
-  const loop = () => { update(); if (!video.paused) requestAnimationFrame(loop); };
-  video.addEventListener('play', () => requestAnimationFrame(loop));
-  video.addEventListener('timeupdate', update); // also fires when animation frames are paused
-  video.addEventListener('seeked', update);
-  video.addEventListener('loadedmetadata', update);
-  items.forEach((li, k) => li.querySelector('button').addEventListener('click', () => {
-    video.currentTime = starts[k] + 0.05;
-    update();
-  }));
-  update();
+  toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+
+  // On phones, dropdown parents expand their sub-links instead of navigating
+  nav.querySelectorAll('.nav-item.has-sub > .nav-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      if (!mq.matches) return;
+      e.preventDefault();
+      const item = link.parentElement;
+      const open = !item.classList.contains('sub-open');
+      nav.querySelectorAll('.nav-item.sub-open').forEach((el) => {
+        if (el !== item) { el.classList.remove('sub-open'); el.firstElementChild.setAttribute('aria-expanded', 'false'); }
+      });
+      item.classList.toggle('sub-open', open);
+      link.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // Close after choosing a destination, on Escape, or when widening to desktop
+  nav.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (a && !a.matches('.nav-item.has-sub > .nav-link')) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); toggle.focus(); }
+  });
+  mq.addEventListener('change', (e) => { if (!e.matches) setMenu(false); });
 })();

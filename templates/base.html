@@ -12,23 +12,82 @@
   <link rel="stylesheet" href="{% static 'css/pages.css' %}">
   <link rel="icon" href="{% static 'img/logo.webp' %}">
   <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+  <link rel="stylesheet" href="{% static 'css/nav.css' %}">
 </head>
 <body class="page-{{ current }}">
   <div class="frame">
 
-    <header class="topbar">
-      <div class="wrap topbar__inner">
-        <a href="{% url 'home' %}" class="logo" aria-label="{{ company.name }}, home">
-          <img src="{% static 'img/logo.webp' %}" alt="{{ company.name }}: Transport, Logistics, Supply Chain Solutions" width="951" height="517">
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a href="{% url 'home' %}" class="brand" aria-label="{{ company.name }}, home">
+          <img class="brand-logo brand-logo--light" src="{% static 'img/logo.webp' %}" alt="" width="951" height="517">
+          <img class="brand-logo brand-logo--dark" src="{% static 'img/logo-dark.webp' %}" alt="" width="951" height="517">
         </a>
-        <nav class="nav" id="nav" aria-label="Main">
-          {% for name, label in nav %}
-          <a href="{% url name %}"{% if current == name %} class="is-active" aria-current="page"{% endif %}>{{ label }}</a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Main">
+          {% for item in menu %}
+          {% if item.children %}
+          <div class="nav-item has-sub">
+            <a href="{% url item.name %}" class="nav-link{% if current in item.match %} active{% endif %}" aria-haspopup="true" aria-expanded="false">{{ item.label }} <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+            {# desktop: full-width mega panel #}
+            <div class="mega" role="region" aria-label="{{ item.label }}">
+              <div class="mega-inner">
+                <div class="mega-intro">
+                  <p class="eyebrow eyebrow--chev">{{ item.intro.0 }}</p>
+                  <h3>{{ item.intro.1 }}</h3>
+                  <p>{{ item.intro.2 }}</p>
+                  <a class="mega-more" href="{% url item.intro.3 %}">{{ item.intro.4 }} <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+                {% if item.kind == "cards" %}
+                <div class="mega-cards">
+                  {% for cname, anchor, title, eyebrow, img, fit in item.children %}
+                  <a class="mega-card mega-card--{{ fit }}" href="{% url cname %}{{ anchor }}">
+                    <img src="{% static img %}" alt="" loading="lazy">
+                    <span><small>{{ eyebrow }}</small>{{ title }}</span>
+                  </a>
+                  {% endfor %}
+                </div>
+                {% else %}
+                <div class="mega-list">
+                  {% for cname, anchor, title, eyebrow, img, fit in item.children %}
+                  <a href="{% url cname %}{{ anchor }}">{{ title }} <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+
+            {# mobile: accordion #}
+            <div class="m-sub">
+              <a href="{% url item.intro.3 %}">{{ item.intro.4 }}</a>
+              {% for cname, anchor, title, eyebrow, img, fit in item.children %}
+              <a href="{% url cname %}{{ anchor }}">{{ title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
+          <div class="nav-item">
+            <a href="{% url item.name %}" class="nav-link{% if current == item.name %} active{% endif %}"{% if current == item.name %} aria-current="page"{% endif %}>{{ item.label }}</a>
+          </div>
+          {% endif %}
           {% endfor %}
+
+          <div class="mobile-cta">
+            <a class="btn" href="{% url 'contact' %}">Request a freight quote <span aria-hidden="true">→</span></a>
+            <a class="mobile-cta__phone" href="tel:{{ company.phone_href }}">{{ company.phone }}</a>
+            <a class="mobile-cta__phone" href="{{ company.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
         </nav>
-        <a class="phone" href="tel:{{ company.phone_href }}">{{ company.phone }}</a>
-        <a class="btn btn--sm" href="{% url 'contact' %}">Get a quote</a>
-        <button class="burger" aria-label="Menu" aria-controls="nav" aria-expanded="false"><span></span><span></span></button>
+
+        <div class="header-cta">
+          <a class="header-phone" href="tel:{{ company.phone_href }}">{{ company.phone }}</a>
+          <a class="btn btn--sm" href="{% url 'contact' %}">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <button class="nav-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
+            <svg class="i-open" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 8h18M4 13h18M4 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="i-close" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M6 6l14 14M20 6 6 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
       </div>
     </header>
 
