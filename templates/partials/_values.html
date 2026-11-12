@@ -1,0 +1,20 @@
+{# Core values: three numbered columns #}
+<section class="values light tint" id="values">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="values__head reveal">
+      <p class="eyebrow eyebrow--chev">Our core values</p>
+      <h2>Three promises<br>behind <span>every load.</span></h2>
+    </div>
+    <div class="values__grid">
+      {% for name, motto, text in values %}
+      <article class="value reveal">
+        <span class="value__num">0{{ forloop.counter }}</span>
+        <h3>{{ name }}</h3>
+        <p class="value__motto">{{ motto }}</p>
+        <p>{{ text }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

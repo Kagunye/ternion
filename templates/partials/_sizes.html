@@ -1,0 +1,20 @@
+{# Typical vehicles, drawn to the same scale #}
+<section class="sizes light" id="sizes">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="sizes__head reveal">
+      <p class="eyebrow eyebrow--chev">Matching the truck to the cargo</p>
+      <h2>The right truck<br>for <span>every load.</span></h2>
+      <p class="lead">We match the truck to the cargo weight, dimensions, loading method and access at destination. Typical vehicle classes we arrange through our carrier network, drawn to the same scale.</p>
+    </div>
+    <div class="sizes__list">
+      {% for v in sizes %}
+      <figure class="size reveal">
+        {{ v.svg }}
+        <figcaption><strong>{{ v.name }}</strong><span>{{ v.use }}</span></figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+    <p class="sizes__note">Illustrations depict typical freight vehicles and do not identify company-owned vehicles. Capacities are indicative and confirmed per quotation.</p>
+  </div>
+</section>

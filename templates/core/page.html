@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ page.title }} | {{ company.name }}{% endblock %}
+{% block description %}{{ page.intro|truncatechars:155 }}{% endblock %}
+
+{% block content %}
+<section class="page-hero light tint{% if not page.image %} page-hero--text{% endif %}">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="page-hero__grid">
+      <div class="page-hero__text reveal">
+        <p class="eyebrow">{{ page.num }} / {{ page.label }}</p>
+        <h1>{{ page.title }}</h1>
+        {% if page.badge %}<span class="badge">{{ page.badge }}</span>{% endif %}
+        {% if page.subtitle %}<p class="page-hero__sub">{{ page.subtitle }}</p>{% endif %}
+        <p class="lead">{{ page.intro }}</p>
+        {% if page.cta %}<a class="btn" href="{% url page.cta.0 %}{% if slug == 'cargodesk' %}?service=cargodesk{% endif %}">{{ page.cta.1 }} <span aria-hidden="true">→</span></a>{% endif %}
+      </div>
+      {% if page.image %}
+      <div class="page-hero__media reveal">
+        <img class="sketch-bg" src="{% static page.sketch %}" alt="" loading="lazy">
+        <img class="truck" src="{% static page.image %}" alt="" loading="lazy">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="blocks light{% if page.legal %} blocks--legal{% endif %}">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap blocks__grid">
+    <div class="blocks__aside reveal">
+      <p class="eyebrow eyebrow--chev">{{ page.label }}</p>
+      <h2>{{ page.blocks_title }}</h2>
+    </div>
+    <div class="blocks__list">
+      {% for title, text in page.blocks %}
+      <article class="block reveal">
+        <span class="block__num">{{ forloop.counter|stringformat:"02d" }}</span>
+        <div>
+          <h3>{{ title }}</h3>
+          <p>{{ text }}</p>
+        </div>
+      </article>
+      {% endfor %}
+      {% if page.note %}<p class="blocks__note reveal">{{ page.note }}</p>{% endif %}
+      {% if page.cta %}
+      <a class="btn btn--ghost btn--ink" href="{% url page.cta.0 %}{% if slug == 'cargodesk' %}?service=cargodesk{% endif %}">{{ page.cta.1 }}</a>
+      {% elif page.legal %}
+      <p class="blocks__note">Questions about this page? Email <a href="mailto:{{ company.email }}">{{ company.email }}</a>.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if route %}{% include "partials/_route.html" %}{% endif %}
+{% if values %}{% include "partials/_values.html" %}{% endif %}
+{% if sizes %}{% include "partials/_sizes.html" %}{% endif %}
+{% if not page.legal %}{% include "partials/_closer.html" %}{% endif %}
+{% endblock %}

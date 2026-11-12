@@ -1,0 +1,22 @@
+{% load static %}
+{# Why us: ship photo header (its "WHY US" lettering is the title) + reasons from the approved copy #}
+<section class="why" id="why-us" aria-labelledby="why-title">
+  <h2 id="why-title" class="sr-only">Why choose Ternion</h2>
+  <div class="why__hero">
+    <img src="{% static 'img/why-us-ship.webp' %}" alt="Why us: a container ship at sea" width="1122" height="760" loading="lazy">
+  </div>
+  <div class="wrap">
+    <ul class="why__grid">
+      {% for title, text, icon in why_us %}
+      <li class="why__item reveal">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="{{ icon }}"/></svg>
+        <h3>{{ title }}</h3>
+        <p>{{ text }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="why__cta reveal">
+      <a href="{% url 'contact' %}" class="btn">Request a freight quote <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>

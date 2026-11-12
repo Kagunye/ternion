@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Contact: request a freight quote | {{ company.name }}{% endblock %}
+
+{% block content %}
+<section class="quote light tint" id="quote">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="quote__grid">
+      <div class="quote__intro reveal">
+        <p class="eyebrow">{{ page.num }} / {{ page.label }}</p>
+        <h1 class="quote__title">{{ page.title }}</h1>
+        <p class="lead">{{ page.intro }}</p>
+        <dl class="contacts">
+          <div><dt>Freight enquiries</dt><dd>{{ company.contact_name }}</dd></div>
+          <div><dt>Phone and WhatsApp</dt><dd><a href="tel:{{ company.phone_href }}">{{ company.phone }}</a> · <a href="{{ company.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:{{ company.email }}">{{ company.email }}</a></dd></div>
+          <div><dt>Office</dt><dd>{{ company.office }}</dd></div>
+        </dl>
+      </div>
+
+      <form method="post" class="form reveal" novalidate>
+        {% csrf_token %}
+        {% for m in messages %}<div class="alert" role="status">{{ m }}</div>{% endfor %}
+        {% if form.errors %}<div class="alert alert--err" role="alert">Please check the highlighted fields.</div>{% endif %}
+        <div class="form__grid">
+          {% for field in form %}
+          <label class="field{% if field.name == 'message' %} field--wide{% endif %}{% if field.errors %} has-error{% endif %}">
+            <span>{{ field.label }}{% if field.field.required %} *{% endif %}</span>
+            {{ field }}
+            {% if field.errors %}<em>{{ field.errors.0 }}</em>{% endif %}
+          </label>
+          {% endfor %}
+        </div>
+        <button class="btn" type="submit">Send freight enquiry <span aria-hidden="true">→</span></button>
+        <p class="form__legal">We use these details to assess the movement and prepare a quotation. See our <a href="{% url 'privacy' %}">privacy notice</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

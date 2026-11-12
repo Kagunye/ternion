@@ -1,0 +1,71 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ company.name }}: road freight, Mombasa to Nairobi{% endblock %}</title>
+  <meta name="description" content="{% block description %}Ternion Ventures Limited arranges road freight from Mombasa to Nairobi and onward across Kenya. Never chase a truck again. We call you first.{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+  <link rel="icon" href="{% static 'img/logo.webp' %}">
+  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+</head>
+<body class="page-{{ current }}">
+  <div class="frame">
+
+    <header class="topbar">
+      <div class="wrap topbar__inner">
+        <a href="{% url 'home' %}" class="logo" aria-label="{{ company.name }}, home">
+          <img src="{% static 'img/logo.webp' %}" alt="{{ company.name }}: Transport, Logistics, Supply Chain Solutions" width="951" height="517">
+        </a>
+        <nav class="nav" id="nav" aria-label="Main">
+          {% for name, label in nav %}
+          <a href="{% url name %}"{% if current == name %} class="is-active" aria-current="page"{% endif %}>{{ label }}</a>
+          {% endfor %}
+        </nav>
+        <a class="phone" href="tel:{{ company.phone_href }}">{{ company.phone }}</a>
+        <a class="btn btn--sm" href="{% url 'contact' %}">Get a quote</a>
+        <button class="burger" aria-label="Menu" aria-controls="nav" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer dark">
+      <div class="wrap footer__grid">
+        <div class="footer__brand">
+          <a href="{% url 'home' %}" class="logo logo--footer"><img src="{% static 'img/logo-dark.webp' %}" alt="{{ company.name }}" width="951" height="517" loading="lazy"></a>
+                    <p class="footer__promise">Never chase a truck again.<br><span>We call you first.</span></p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="{% url 'about' %}">About us</a>
+          <a href="{% url 'services' %}">Services</a>
+          <a href="{% url 'industries' %}">Industries</a>
+          <a href="{% url 'operations' %}">Operations</a>
+          <a href="{% url 'cargodesk' %}">Ternion CargoDesk</a>
+        </div>
+        <div>
+          <h4>Freight enquiries</h4>
+          <span>{{ company.contact_name }}</span>
+          <a href="tel:{{ company.phone_href }}">{{ company.phone }}</a>
+          <a href="{{ company.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+          <span>{{ company.office }}</span>
+        </div>
+      </div>
+      <div class="wrap footer__bottom">
+        <span>© {% now "Y" %} {{ company.name }}</span>
+        <span class="footer__links"><a href="{% url 'privacy' %}">Privacy notice</a><a href="{% url 'terms' %}">Terms of use</a></span>
+      </div>
+    </footer>
+
+  </div>
+  <script src="{% static 'js/site.js' %}" defer></script>
+</body>
+</html>

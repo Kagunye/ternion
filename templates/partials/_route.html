@@ -1,0 +1,40 @@
+{# Schematic route map: core corridor + onward movements #}
+<section class="route dark" id="route">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap route__grid">
+    <div class="route__text reveal">
+      <p class="eyebrow eyebrow--chev">Where we operate</p>
+      <h2>{{ route.core.0 }} <span class="arrow" aria-hidden="true">→</span><br><span>{{ route.core.1 }}.</span></h2>
+      <p class="lead">Our core route connects collection points in Mombasa with Nairobi. We also arrange onward movements to {{ route.onward|join:", " }}, subject to customer request.</p>
+      <ul class="route__legend">
+        <li><i class="lg lg--core"></i>Core route</li>
+        <li><i class="lg lg--onward"></i>Onward on request</li>
+      </ul>
+    </div>
+    <div class="route__map reveal">
+      <svg viewBox="0 0 700 420" fill="none" class="draw" role="img" aria-label="Route map: Mombasa to Nairobi, onward to Nakuru, Eldoret, Kisumu and Kitui">
+        {# onward dotted lines #}
+        <g class="rt-onward">
+          <path d="M392 226 L300 168" /><path d="M300 168 L190 96" />
+          <path d="M300 168 L130 196" /><path d="M392 226 L470 186" />
+        </g>
+        {# core corridor #}
+        <path class="rt-core" d="M392 226 L470 262 L560 318 L628 372" />
+        {# nodes #}
+        <g class="rt-node rt-node--main"><circle cx="628" cy="372" r="9"/><circle cx="628" cy="372" r="18" class="ring"/></g>
+        <g class="rt-node rt-node--main"><circle cx="392" cy="226" r="9"/><circle cx="392" cy="226" r="18" class="ring"/></g>
+        <g class="rt-node"><circle cx="300" cy="168" r="5"/></g>
+        <g class="rt-node"><circle cx="190" cy="96" r="5"/></g>
+        <g class="rt-node"><circle cx="130" cy="196" r="5"/></g>
+        <g class="rt-node"><circle cx="470" cy="186" r="5"/></g>
+        {# labels #}
+        <text x="600" y="410" class="rt-l rt-l--main">MOMBASA</text>
+        <text x="410" y="252" class="rt-l rt-l--main">NAIROBI</text>
+        <text x="312" y="160" class="rt-l">NAKURU</text>
+        <text x="202" y="88" class="rt-l">ELDORET</text>
+        <text x="70" y="226" class="rt-l">KISUMU</text>
+        <text x="482" y="178" class="rt-l">KITUI</text>
+      </svg>
+    </div>
+  </div>
+</section>

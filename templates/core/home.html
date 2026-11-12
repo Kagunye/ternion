@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{# ============ HERO ============ #}
+<section class="hero-s light">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap hero-s__grid">
+    <div class="hero-s__text reveal">
+      <p class="eyebrow eyebrow--chev">Road freight · Mombasa · Nairobi · Kenya</p>
+      <h1>{{ home.headline }}<br><span>{{ home.headline_accent }}</span></h1>
+      <p class="lead">{{ home.intro }}</p>
+      <div class="btn-row">
+        <a class="btn" href="{% url 'contact' %}">Request a freight quote <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="{% url 'operations' %}">Explore our operations</a>
+      </div>
+      <ul class="hero-s__facts">
+        <li><strong>3 calls</strong><span>on every load</span></li>
+        <li><strong>1 contact</strong><span>named &amp; accountable</span></li>
+        <li><strong>MSA → NBO</strong><span>core route</span></li>
+      </ul>
+    </div>
+    <div class="hero-s__media reveal">
+      <img class="sketch-bg" src="{% static 'img/truck-orange-sketch.webp' %}" alt="" loading="eager">
+      <img class="truck" src="{% static 'img/truck-orange.webp' %}" alt="Orange curtain-side truck" width="1628" height="744" loading="eager">
+    </div>
+  </div>
+</section>
+
+{# ============ NEVER GO OFF TRACK ============ #}
+<section class="track light tint" id="on-track">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap track__grid">
+    <div class="track__text reveal">
+      <p class="track__brand"><span>Ternion Ventures Limited<b>.</b></span></p>
+      <h2 class="track__title">Never<br><span>go&nbsp;off</span><br>track</h2>
+      <i class="track__bar" aria-hidden="true"></i>
+      <p class="track__lead">At <strong>Ternion Ventures Limited</strong>, we keep your cargo moving forward: the right truck, a plan confirmed before dispatch and one contact who follows up until signed handover.</p>
+      <p class="track__quote">Clear direction.<br>Consistent execution.</p>
+    </div>
+    <div class="track__media reveal">
+      <img src="{% static 'img/truck-track.webp' %}" alt="Truck with an orange container driving along a curving rail track" loading="lazy">
+    </div>
+  </div>
+  <div class="wrap track__tagline reveal" aria-label="Collection, coordination, handover">
+    <i></i><span>Collection.</span> <span class="o">Coordination.</span> <span>Handover.</span><i></i>
+  </div>
+</section>
+
+{# ============ THE THREE CALLS ============ #}
+<section class="fleet dark" id="three-calls">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap fleet__row">
+    <div class="fleet__media reveal">
+      <img class="sketch-bg" src="{% static 'img/truck-orange-sketch.webp' %}" alt="" loading="lazy">
+      <img class="truck" src="{% static 'img/truck-orange.webp' %}" alt="Orange curtain-side truck" loading="lazy">
+    </div>
+    <div class="fleet__body reveal">
+      <p class="eyebrow eyebrow--chev">The Three Calls</p>
+      <h2 class="fleet__title">Three moments.<br><span>Three calls.</span></h2>
+      <div class="acc" data-accordion>
+        {% for title, text in home.three_calls %}
+        <details {% if forloop.first %}open{% endif %}>
+          <summary><b class="acc__n">0{{ forloop.counter }}</b>{{ title }}<i class="plus" aria-hidden="true"></i></summary>
+          <p>{{ text }}</p>
+        </details>
+        {% endfor %}
+      </div>
+      <a href="{% url 'contact' %}" class="btn btn--ghost">Request a freight quote</a>
+    </div>
+  </div>
+</section>
+
+{# ============ IMPORTERS / CFS + INDUSTRIES ============ #}
+<section class="fleet light" id="industries">
+  <div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap lift">
+    <div class="lift__specs reveal">
+      <p class="eyebrow eyebrow--chev">Importers and clearing agents</p>
+      <h2>From CFS release<br>to the <span>receiving door.</span></h2>
+      <div class="spec-row">
+        <div class="spec spec--inline"><strong>MOMBASA</strong><span>container freight station collection</span></div>
+        <div class="spec spec--inline"><strong>NAIROBI</strong><span>and onward across Kenya</span></div>
+      </div>
+    </div>
+    <div class="lift__media reveal">
+      <img class="sketch-bg" src="{% static 'img/container-hook-sketch.webp' %}" alt="" loading="lazy">
+      <img class="swing" src="{% static 'img/container-hook.webp' %}" alt="Orange shipping container lifted by a crane hook" loading="lazy">
+    </div>
+  </div>
+
+  <div class="wrap fleet__row">
+    <div class="fleet__media reveal">
+      <img class="sketch-bg" src="{% static 'img/truck-container-sketch.webp' %}" alt="" loading="lazy">
+      <img class="truck" src="{% static 'img/truck-container.webp' %}" alt="Truck hauling an orange shipping container" loading="lazy">
+    </div>
+    <div class="fleet__body reveal">
+      <p class="eyebrow eyebrow--chev">Industries</p>
+      <p class="fleet__lead">We plan each booking around the people who depend on it.</p>
+      <div class="acc" data-accordion>
+        {% for title, text in industries %}
+        <details {% if forloop.first %}open{% endif %}>
+          <summary>{{ title }}<i class="plus" aria-hidden="true"></i></summary>
+          <p>{{ text }}</p>
+        </details>
+        {% endfor %}
+      </div>
+      <a href="{% url 'industries' %}" class="btn btn--ghost">See industries</a>
+    </div>
+  </div>
+</section>
+
+{% include "partials/_why.html" %}
+
+{% include "partials/_values.html" %}
+
+{# ============ VISION / MISSION ============ #}
+<section class="vm vm--bg light">
+  <img class="vm__bg" src="{% static 'img/containers-stack.webp' %}" alt="" loading="lazy" width="1122" height="1402">
+  <div class="wrap vm__stack">
+    <div class="vm__item reveal">
+      <p class="eyebrow eyebrow--chev">Our vision</p>
+      <p class="vm__big">{{ vision }}</p>
+    </div>
+    <div class="vm__item vm__item--mission reveal">
+      <p class="eyebrow eyebrow--chev">Our mission</p>
+      <p class="vm__text">{{ mission }}</p>
+      <a href="{% url 'about' %}" class="btn btn--ghost">About Ternion</a>
+    </div>
+  </div>
+</section>
+
+{% include "partials/_route.html" %}
+{% include "partials/_sizes.html" %}
+{% include "partials/_closer.html" %}
+{% endblock %}
