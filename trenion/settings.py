@@ -34,7 +34,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 ALLOWED_HOSTS = [h.strip() for h in os.environ.get('DJANGO_ALLOWED_HOSTS', 'ternionventures.co.ke,www.ternionventures.co.ke,ternion.vercel.app,localhost,127.0.0.1').split(',') if h.strip()]
 
 # Full origins (with scheme) allowed to POST forms, e.g. https://ternionventures.co.ke,https://www.ternionventures.co.ke
-CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'https://ternionventures.co.ke,https://www.ternionventures.co.ke,https://ternion.vercel.app').split(',') if o.strip()]
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'https://ternionventures.co.ke,https://www.ternionventures.co.ke,http://ternionventures.co.ke,http://www.ternionventures.co.ke,https://ternion.vercel.app').split(',') if o.strip()]
 
 # Vercel terminates HTTPS in front of the app
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
