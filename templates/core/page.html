@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ page.title }} | {{ company.name }}{% endblock %}
-{% block description %}{{ page.intro|truncatechars:155 }}{% endblock %}
 
 {% block content %}
 <section class="page-hero light tint{% if not page.image %} page-hero--text{% endif %}">

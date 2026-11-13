@@ -1,9 +1,9 @@
 from django.contrib import messages
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from . import content, fleet_svg
+from . import content, fleet_svg, seo
 from .forms import QuoteRequestForm
 
 
@@ -49,3 +49,25 @@ def contact(request):
         form = QuoteRequestForm(initial=initial)
 
     return render(request, "core/contact.html", {"page": content.CONTACT, "form": form})
+
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "Disallow: /admin/",
+        "",
+        f"Sitemap: {seo.absolute(reverse('sitemap'))}",
+    ]
+    return HttpResponse("\n".join(lines) + "\n", content_type="text/plain")
+
+
+def sitemap_xml(request):
+    urls = "".join(
+        f"<url><loc>{seo.absolute(reverse(name))}</loc><changefreq>{freq}</changefreq>"
+        f"<priority>{prio}</priority></url>"
+        for name, prio, freq in content.SITEMAP
+    )
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>")
+    return HttpResponse(xml, content_type="application/xml")

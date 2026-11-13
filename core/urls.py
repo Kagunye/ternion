@@ -7,6 +7,8 @@ PAGE_SLUGS = ["about", "services", "industries", "operations", "cargodesk", "pri
 urlpatterns = [
     path("", views.home, name="home"),
     path("contact/", views.contact, name="contact"),
+    path("robots.txt", views.robots_txt, name="robots"),
+    path("sitemap.xml", views.sitemap_xml, name="sitemap"),
 ] + [
     path(f"{slug}/", views.page, {"slug": slug}, name=slug) for slug in PAGE_SLUGS
 ]

@@ -303,3 +303,49 @@ MENU = [
     },
     {"name": "contact", "label": "Contact"},
 ]
+
+
+# ---------------------------------------------------------------- SEO
+# Per-page <title> (~60 chars) and meta description (~155 chars).
+SEO = {
+    "home": ("Ternion Ventures | Road Freight Mombasa to Nairobi, Kenya",
+             "Road freight from Mombasa to Nairobi and across Kenya. We match your cargo to the right truck, "
+             "follow it to signed handover and call you first."),
+    "about": ("About Ternion Ventures Limited | Freight Since 2022",
+              "Ternion Ventures Limited has coordinated commercial freight through contracted carriers since "
+              "September 2022. Our vision, mission and core values."),
+    "services": ("Road Freight & Inland Distribution in Kenya | Ternion",
+                 "Road freight for single consignments and repeat deliveries from Mombasa. Trucks matched to "
+                 "weight, dimensions and access, with firm, clear quotes."),
+    "industries": ("Freight for Importers & Distributors | Ternion Ventures",
+                   "Road freight planned around clearing agents, factory receiving windows and distributors' "
+                   "signed delivery notes, from Mombasa CFS to your door."),
+    "operations": ("Mombasa to Nairobi Freight Operations | Ternion Ventures",
+                   "Our core route links Mombasa collection points with Nairobi, with onward movements to "
+                   "Nakuru, Eldoret, Kisumu and Kitui on request."),
+    "cargodesk": ("Ternion CargoDesk | Managed Shipment Coordination",
+                  "CargoDesk coordinates CFS release, carriers and receiving warehouses for importers, clearing "
+                  "agents and distributors. A paid service in development."),
+    "contact": ("Request a Freight Quote | Ternion Ventures Limited",
+                "Send your collection point, destination, cargo type, weight and date. Call or WhatsApp "
+                "+254 724 388677. Office on Mombasa Road, Nairobi."),
+    "privacy": ("Privacy Notice | Ternion Ventures Limited",
+                "How Ternion Ventures Limited uses enquiry and shipment details, including website forms, "
+                "calls, WhatsApp and delivery records."),
+    "terms": ("Terms of Use | Ternion Ventures Limited",
+              "Freight quotation and booking terms: quote validity, collection and delivery windows, updates, "
+              "proof of delivery and CargoDesk."),
+}
+
+# Pages listed in sitemap.xml: (url name, priority, change frequency)
+SITEMAP = [
+    ("home", "1.0", "weekly"),
+    ("services", "0.9", "monthly"),
+    ("contact", "0.9", "monthly"),
+    ("about", "0.8", "monthly"),
+    ("industries", "0.8", "monthly"),
+    ("operations", "0.8", "monthly"),
+    ("cargodesk", "0.6", "monthly"),
+    ("privacy", "0.3", "yearly"),
+    ("terms", "0.3", "yearly"),
+]
