@@ -36,6 +36,9 @@ ALLOWED_HOSTS = [h.strip() for h in os.environ.get('DJANGO_ALLOWED_HOSTS', 'tern
 # Public address used for canonical links, sitemap.xml and social previews
 SITE_URL = os.environ.get('SITE_URL', 'https://ternionventures.co.ke').rstrip('/')
 
+# Google Search Console ownership check (public value, safe to commit)
+GOOGLE_SITE_VERIFICATION = os.environ.get('GOOGLE_SITE_VERIFICATION', 'pTzI3M5AKML9JQahX-rxXrZPvZoDVodSVUqYVPSMvww')
+
 # Full origins (with scheme) allowed to POST forms, e.g. https://ternionventures.co.ke,https://www.ternionventures.co.ke
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'https://ternionventures.co.ke,https://www.ternionventures.co.ke,http://ternionventures.co.ke,http://www.ternionventures.co.ke,https://ternion.vercel.app').split(',') if o.strip()]
 

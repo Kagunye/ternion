@@ -91,4 +91,5 @@ def context(request, url_name):
             "jsonld": jsonld(url_name),
         },
         "site_url": settings.SITE_URL.rstrip("/"),
+        "google_site_verification": getattr(settings, "GOOGLE_SITE_VERIFICATION", ""),
     }
